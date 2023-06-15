@@ -1,0 +1,12 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+warehouse/*
+metastore_db/*
+derby.log
+
+venv/
+.idea/
+
+.DS_Store
+
