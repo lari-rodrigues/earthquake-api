@@ -7,3 +7,5 @@ geopy==2.3.0
 python-dotenv==1.0.0
 alembic==1.11.1
 mysqlclient==2.1.1
+pandas==2.0.2
+requests-cache==1.0.1

@@ -1,4 +1,6 @@
 import requests
+import requests_cache
+
 from datetime import date
 import logging
 
@@ -10,6 +12,8 @@ class EarthquakeAPI:
     def __init__(self):
         logging.basicConfig(level=logging.INFO)
         self.logger = logging.getLogger(__name__)
+        self.session = requests_cache.CachedSession(__name__)
+
 
     def get_earthquake_data(self, start_time: date, end_time: date, min_magnitude : float =  DEFAULT_MIN_MAGNITUDE):
         start_time_str = start_time.strftime('%Y-%m-%d')
@@ -23,7 +27,7 @@ class EarthquakeAPI:
         }
 
         try:
-            response = requests.get(self.USGS_API_URL, params=params)
+            response = self.session.get(self.USGS_API_URL, params=params)
             response.raise_for_status()
             data = response.json()
             return data
