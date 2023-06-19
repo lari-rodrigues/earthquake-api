@@ -4,7 +4,7 @@ FROM python:3.8
 WORKDIR /app
 
 # Copy the requirements.txt file
-COPY requirements.txt .
+COPY src/requirements.txt .
 
 # Install the Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt

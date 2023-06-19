@@ -25,12 +25,11 @@ class CityService:
         self.logger.info("Creating city")
         location = self.find_location(city_request.name, city_request.state, city_request.country)
 
-        city = City()
-        city.name = city_request.name
-        city.state = city_request.state
-        city.country = city_request.country
-        city.latitude = location.latitude
-        city.longitude = location.longitude
+        city = City(name=city_request.name, 
+                    state=city_request.state,
+                    country=city_request.country,
+                    latitude=location.latitude,
+                    longitude=location.longitude)
 
         self.db.add(city)
         self.db.commit()

@@ -1,5 +1,5 @@
 install:
-	pip3 install -r requirements.txt
+	pip3 install -r src/requirements.txt
 
 venv:
 	python3 --version && python3 -m venv venv
