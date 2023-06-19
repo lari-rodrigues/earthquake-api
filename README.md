@@ -19,6 +19,11 @@ Main tech used: Python, Mysql, SqlAlchemy, Pandas, FastAPI, GeoPy
 -----
 ## Local Setup
 ``` bash
+# Duplicate env template
+$ cp .env.template .env
+
+#---- Configure your local environmental variables ----
+
 $ docker-compose up
 ```
 
