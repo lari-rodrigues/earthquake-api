@@ -1,5 +1,5 @@
 from sqlalchemy import Column, String, Float, BigInteger
-from src.domain.model_base import Base
+from src.models.base_model import Base
 
 class City(Base):
     __tablename__ = "city"
