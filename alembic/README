@@ -1,0 +1,42 @@
+# SQLAlchemy + Alembic
+
+## Docs
+
+https://docs.sqlalchemy.org/en/14/index.html
+
+https://docs.sqlalchemy.org/en/14/orm/quickstart.html
+
+https://docs.sqlalchemy.org/en/14/orm/queryguide.html
+
+https://docs.sqlalchemy.org/en/14/orm/mapping_styles.html
+
+https://alembic.sqlalchemy.org/en/latest/tutorial.html
+
+https://alembic.sqlalchemy.org/en/latest/autogenerate.html
+
+
+## Control table
+
+|Table          |Column     |
+|---------------|-----------|
+|alembic_version|version_num|
+
+## Creating new model
+
+1. Create new model at `src/models/` inheriting from `src/models/base_model.py`.
+2. Add the new class to `src/models/__init__.py`.
+
+## Create a new revision from new Model
+```sh
+$ make db-migrate
+```
+
+## Upgrade
+```sh
+$ make db-upgrade
+```
+
+## Downgrade - Rollback environment (since beginning)
+```sh
+$ make db-downgrade
+```

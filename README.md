@@ -1,4 +1,4 @@
-# Eartquakes challenge
+# Eartquake API
 Our application is a comprehensive system that leverages the USGS Earthquakes public data set to provide users with valuable information about earthquakes and cities. The system is built using REST APIs, allowing users to easily access and interact with the data. 
 
 By utilizing these APIs, users can retrieve relevant earthquake information, such as magnitude, location, and date/time, as well as obtain details about cities.
@@ -12,6 +12,8 @@ https://earthquake.usgs.gov/earthquakes/search/
 ```
 Docker          v20.10.21
 Docker Compose  v2.13.0
+Python          v3.8
+pip             v21.2.4
 ```
 Main tech used: Python, Mysql, SqlAlchemy, Pandas, FastAPI, GeoPy
 
@@ -22,15 +24,31 @@ Main tech used: Python, Mysql, SqlAlchemy, Pandas, FastAPI, GeoPy
 # Duplicate env template
 $ cp .env.template .env
 
-#---- Configure your local environmental variables ----
+#---- Manual step: Configure your local environmental variables at .env file (optional) ----
 
-$ docker-compose up
+$ docker-compose up -d
+
+$ make venv
+$ source venv/bin/activate
+$ make install
+
+#---- Database Migration ----
+$ make db-upgrade
 ```
 
 -----
 ## Database migration
-TODO
+Database migration is the process of making changes to a database schema or data while preserving existing information and application functionality.
 
+Alembic is a Python-based database migration tool commonly used for managing schema changes.
+
+It allows developers to define changes using Python scripts called "migrations" and applies them in a sequential order.
+
+Alembic tracks the migration history, enabling easy rollbacks and ensuring consistency across environments.
+
+It offers a command-line interface and integrates well with various database systems, making it versatile and reliable for managing database migrations.
+
+Please read alembic/README for more information.
 
 -----
 ## Makefile
@@ -39,14 +57,15 @@ Contains helpful commands used in everyday life.
 -----
 ## Implementation
 ``` bash
-./config/       # Config / Infrastructure (e.g, database)
-./exceptions/   # Custom exceptions
-./integration/  # Integration with external systems (third parties or public data)
-./models/       # Database models (e.g., SQLAlchemy models)
-./routers/      # Router instance and routes
-./schemas/      # Data "schemas" (e.g., Pydantic models)
-./services/     # Business logic
-app.py          # Main app
+./src/config/       # Config / Infrastructure (e.g, database)
+./src/exceptions/   # Custom exceptions
+./src/integration/  # Integration with external systems (third parties or public data)
+./src/models/       # Database models (e.g., SQLAlchemy models)
+./src/routers/      # Router instance and routes
+./src/schemas/      # Data "schemas" (e.g., Pydantic models)
+./src/services/     # Business logic
+./src/app.py        # Main app
+./alembic/versions  # Contains database migration scripts (ddl/dml)
 ```
 
 -----
@@ -59,15 +78,18 @@ app.py          # Main app
 
 http://localhost:8000/docs
 
+<img src="images/swagger.png" alt="" width="300" />
 
 -----
 ## Postman
 `Postman` is a popular API development and testing tool that simplifies the process of working with APIs. It provides an intuitive interface for making API requests, organizing and managing collections, and automating tests, making it a valuable tool for developers and testers.
 
-TODO: add url
-Since we don't have relevant/sensitive information at Postman, I'm sharing the collection here.
+https://api.postman.com/collections/26530044-9a931503-47f7-45fb-bf50-5edfdd950b3f?access_key=PMAT-01H37C4GBMZ6YP9838XH7D50NG
+
+Since we don't have relevant/sensitive information at Postman, I'm sharing the collection here. You can import the collection with requests into your Postman.
 In a real environment, we would have an shared environment with the team to collaborate.
 
+<img src="images/postman.png" alt="" width="1000" />
 
 -----
 ## Tests
@@ -82,7 +104,7 @@ In a real environment, we would have an shared environment with the team to coll
     test a specific logic/transformation
 
     ``` bash
-    make unit-tests
+    $ make unit-tests
     ```
 
 - Integration Tests (TODO):
@@ -108,14 +130,16 @@ In a real environment, we would have an shared environment with the team to coll
 -----
 ## Github actions
 
-Run unit-tests every commit in main.
+GitHub Actions automates unit testing on every commit to the main branch, ensuring code quality and functionality. 
+This continuous testing approach reduces bugs in production, promoting stable and reliable software. GitHub Actions provides an integrated workflow, triggering tests with each commit. By automating testing, we prioritize stability, integrity, and quality, facilitating faster iterations and an improved development experience.
+
+Config file: .github/workflows/python-app.yml
 
 -----
 ## Next Steps / Improvements:
-- refac service: https://camillovisini.com/article/abstracting-fastapi-services/
-- exception handler : https://fastapi.tiangolo.com/tutorial/handling-errors/
-- create response / swagger documentation: https://fastapi.tiangolo.com/tutorial/sql-databases/
-- alembic
-- black/PEP8
-- authentication
-- implement integration, end-to-end and performance tests
+- Include Black (code formatter) and enforce PEP8 style guidelines
+- Improve swagger documentation defining response class: https://fastapi.tiangolo.com/tutorial/sql-databases/
+- Improve service abstraction by creating Service Results: https://camillovisini.com/article/abstracting-fastapi-services/
+- Implement authentication (oauth, user, JWT)
+- Implement integration, end-to-end and performance tests
+- Implement exception handler : https://fastapi.tiangolo.com/tutorial/handling-errors/ and then implement unit tests to check exception http results

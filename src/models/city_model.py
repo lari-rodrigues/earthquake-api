@@ -5,8 +5,8 @@ class City(Base):
     __tablename__ = "city"
 
     id = Column(BigInteger, primary_key=True, index=True)
-    name = Column(String)
-    state = Column(String)
-    country = Column(String)
+    name = Column(String(100))
+    state = Column(String(100))
+    country = Column(String(100))
     latitude = Column(Float)
     longitude = Column(Float)
