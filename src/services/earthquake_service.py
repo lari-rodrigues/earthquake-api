@@ -5,6 +5,7 @@ from geopy.distance import geodesic
 from src.models.city_model import City
 from src.integration.earthquake_api import EarthquakeAPI
 from src.exceptions.entity_not_found_exception import EntityNotFoundException
+from src.exceptions.empty_data_from_api import EmptyDataFromAPI
 import logging
 
 DEFAULT_MIN_MAGNITUDE = 5
@@ -19,6 +20,8 @@ class EarthquakeService:
                             end_date: date):
         self.logger.info("Getting earthquake data")
         earthquakes_result = EarthquakeAPI().get_earthquake_data(start_date, end_date, DEFAULT_MIN_MAGNITUDE)
+        if not earthquakes_result['features']:
+            raise EmptyDataFromAPI("Empty data from API USGS")
         df = pd.json_normalize(earthquakes_result, record_path =["features"])
         df = df[["id", "properties.time", "properties.title", "geometry.coordinates"]]
 

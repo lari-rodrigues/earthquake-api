@@ -138,8 +138,9 @@ Config file: .github/workflows/python-app.yml
 -----
 ## Next Steps / Improvements:
 - Include Black (code formatter) and enforce PEP8 style guidelines
-- Improve swagger documentation defining response class: https://fastapi.tiangolo.com/tutorial/sql-databases/
+- Improve swagger documentation by defining response classes at router. For Example, if we define a class CityResponse and include it as a response of the router method get_cities, the documentation would be better.
 - Improve service abstraction by creating Service Results: https://camillovisini.com/article/abstracting-fastapi-services/
 - Implement authentication (oauth, user, JWT)
 - Implement integration, end-to-end and performance tests
-- Implement exception handler : https://fastapi.tiangolo.com/tutorial/handling-errors/ and then implement unit tests to check exception http results
+- Implement exception handler : https://fastapi.tiangolo.com/tutorial/handling-errors/ and also implement unit tests to check exception http results
+- Validate create_city endpoint to keep a pattern for states and countries

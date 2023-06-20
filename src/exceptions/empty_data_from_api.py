@@ -1,0 +1,3 @@
+
+class EmptyDataFromAPI(Exception):
+    pass
